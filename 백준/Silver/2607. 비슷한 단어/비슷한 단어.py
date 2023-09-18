@@ -1,4 +1,4 @@
-import copy
+# import copy
 from sys import stdin
 from collections import Counter
 input = stdin.readline
@@ -11,7 +11,8 @@ first_word = list(input().rstrip())
 
 for i in range(N-1):
     count = 0
-    copy_first = copy.deepcopy(first_word)
+    copy_first = first_word[:]
+    # copy_first = copy.deepcopy(first_word)
     word = input().rstrip()
 
     for j in word:
