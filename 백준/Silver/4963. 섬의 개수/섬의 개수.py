@@ -2,30 +2,22 @@ from sys import stdin,setrecursionlimit
 setrecursionlimit(10**6)
 input = stdin.readline
 
+# 상 하 좌 우 왼위 오위 왼아래 오아래
 def dfs(y,x):
-    
-    if x<=-1 \
-        or x>=w \
-            or y<=-1 \
-                or y>=h:
-        return False
 
-    if graph[y][x] == 1:
-        graph[y][x] = 0
-
-        dfs(y-1,x)
-        dfs(y+1,x)
-        dfs(y,x+1)
-        dfs(y,x-1)
-        dfs(y-1,x-1)
-        dfs(y-1,x+1)
-        dfs(y+1,x-1)
-        dfs(y+1,x+1)
-
-        return True
-    return False
+    dx =[0, 0, -1, 1, -1, 1, -1, 1]
+    dy =[-1, 1, 0, 0, -1, -1, 1, 1]
 
 
+    graph[y][x] = 0
+
+    for i in range(len(dx)):
+        nx = x+dx[i]
+        ny = y+dy[i]
+        if 0<=nx<w \
+            and 0<=ny<h \
+                and graph[ny][nx] == 1:
+            dfs(ny,nx)
 
 while True:
 
@@ -42,6 +34,7 @@ while True:
     
     for i in range(h):
         for j in range(w):
-            if dfs(i,j) == True:
+            if graph[i][j] == 1:
+                dfs(i,j)
                 ans+=1
     print(ans)
