@@ -13,33 +13,33 @@ class Node {
   }
 }
 
-class Deque {
+class Queue {
   constructor(value) {
     this.init();
   }
   init() {
-    this.count = 0;
+    this.size = 0;
     this.head = null;
     this.tail = null;
   }
   shift() {
-    if (this.count === 0) return null;
+    if (this.size === 0) return null;
 
     const value = this.head.value;
 
-    if (this.count === 1) {
+    if (this.size === 1) {
       this.init();
     } else {
       this.head = this.head.next;
       this.head.prev = null;
-      this.count--;
+      this.size--;
     }
     return value;
   }
   push(value) {
     const node = new Node(value);
 
-    if (this.count === 0) {
+    if (this.size === 0) {
       this.head = node;
       this.tail = node;
     } else {
@@ -48,7 +48,7 @@ class Deque {
       node.prev = prevNode;
       this.tail = node;
     }
-    this.count++;
+    this.size++;
   }
 }
 
@@ -56,7 +56,7 @@ const [M, N] = input[0].split(" ").map(Number);
 
 const graph = Array.from({ length: N }, () => []);
 
-const queue = new Deque();
+const queue = new Queue();
 
 let ans = 0;
 
@@ -71,7 +71,7 @@ const bfs = (queue, hostCount) => {
   const dx = [0, 0, -1, 1];
   let flag = 0;
   let count = 0;
-  while (queue.count !== 0) {
+  while (queue.size !== 0) {
     const [y, x] = queue.shift();
 
     for (let i = 0; i < dy.length; i++) {
@@ -100,7 +100,7 @@ for (let i = 0; i < N; i++) {
     }
   }
 }
-const hostCount = queue.count;
+const hostCount = queue.size;
 
 ans = bfs(queue, hostCount);
 
