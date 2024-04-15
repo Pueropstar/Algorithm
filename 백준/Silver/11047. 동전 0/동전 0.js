@@ -5,26 +5,17 @@ const input = fs
   .trim()
   .split("\n");
 
-const [N, K] = input[0].split(" ").map(Number);
+const [N, K] = input.shift().split(" ").map(Number);
 
-const valueArr = [];
+const coins = input.map(Number).sort((a, b) => b - a);
 
-let target = K;
+let money = K;
 
 let ans = 0;
-
-for (let i = 1; i <= N; i++) {
-  const value = Number(input[i]);
-  valueArr.push(value);
-}
-
-valueArr.forEach((el, index) => {
-  if (valueArr[N - 1 - index] <= target) {
-    while (valueArr[N - 1 - index] <= target) {
-      target -= valueArr[N - 1 - index];
-      ans++;
-    }
+coins.forEach((el, index) => {
+  if (money >= el) {
+    ans += Math.floor(money / el);
+    money = money % el;
   }
 });
-
 console.log(ans);
